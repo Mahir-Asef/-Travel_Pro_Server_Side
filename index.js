@@ -30,7 +30,15 @@ async function run() {
       res.send(trips);
     });
 
-    // GET SINGLE TRIP 
+    //post data to a trips
+
+    app.post("/trips", async (req, res) => {
+      const trip = req.body;
+      const result = await tripsCollection.insertOne(trip);
+      res.json(result);
+    });
+
+    // get data for a single trip
 
     app.get("/trips/:id", async (req, res) => {
       const id = req.params.id;
@@ -39,7 +47,7 @@ async function run() {
       res.json(trip);
     });
 
-    // ADD DATA TO CART
+    // add data to cart
 
     app.post("/cart", async (req, res) => {
       const trip = req.body;
@@ -47,7 +55,7 @@ async function run() {
       res.json(result);
     });
 
-    // GET CART DATA
+    //get data from cart
 
     app.get("/cart", async (req, res) => {
       const cursor = cartCollection.find({});
@@ -55,7 +63,7 @@ async function run() {
       res.send(trips);
     });
 
-    // GET CART DATA BY USER
+    // get cart data for unique id
 
     app.get("/cart/:uid", async (req, res) => {
       const uid = req.params.uid;
@@ -65,7 +73,7 @@ async function run() {
       res.json(result);
     });
 
-    // DELETE DATA FROM CART
+    // delete a single trip
 
     app.delete("/delete/:id", async (req, res) => {
       const id = req.params.id;
